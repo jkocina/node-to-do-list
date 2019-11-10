@@ -3,4 +3,11 @@
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
 
+    <ul>
+      <% todos.forEach(function(todo) { %>
+        <li><%= todo.text %> - <%= todo.body %></li>
+      <% }) %>
+
+    </ul>
+
 <% include ../views/partials/footer %>
