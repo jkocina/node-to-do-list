@@ -16,8 +16,6 @@ router.get('/', function(req, res, next) {
   db = MongoUtil.getDb();
   typeof("The type of the database is : " + db)
 
-  console.log(typeof(db));
-
   //Getting the todos collection
   Todos = db.collection('todoapp');
   console.log("This is the type of the todos: " + typeof(Todos));

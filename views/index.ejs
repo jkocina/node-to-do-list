@@ -26,7 +26,9 @@
 
     <ul class="list-group">
       <% todos.forEach(function(todo) { %>
-        <li class="list-group-item"><%= todo.text %> - <%= todo.body %></li>
+        <li class="list-group-item">
+          <%= todo.text %> - <%= todo.body %> <button type="button" action="/todo/delete" form-method="put" class="btn btn-danger float-right" name="<%= todo._id %>">Delete</button>
+        </li>
       <% }) %>
 
     </ul>
