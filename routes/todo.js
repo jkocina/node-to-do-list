@@ -51,7 +51,8 @@ router.delete('/delete/:id', (req, res, next) => {
 
   //Getting the db instance
   db = MongoUtil.getDb();
-
+  ObjectId = MongoUtil.getObjectId();
+  
   Todos = db.collection('todoapp');
   Todos.deleteOne({"_id" : ObjectId(req.params.id)}, (err, response) => {
 

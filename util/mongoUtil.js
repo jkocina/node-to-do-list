@@ -14,5 +14,8 @@ module.exports = {
 
   getDb: function() {
     return _db;
+  },
+  getObjectId: function() {
+    return ObjectID;
   }
 };
