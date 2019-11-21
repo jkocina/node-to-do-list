@@ -1,13 +1,35 @@
 <% include ../views/partials/header %>
 
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <section class="jumbotron text-center">
+      <div class="container">
+        <div class="jumbotron-header">
+          <h1><%= title %></h1>
+          <p>When you just need to know <%= title %></p>
+        </div>
+      </div>
+    </section>
 
-    <ul>
+    <div class="container">
+      <div class="row" id="taskFormRow">
+        <form id="taskForm" action="/todo/add" method="POST">
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="taskName">Task Name</label>
+            <input class="col-md-3 form-control" type="text" id="taskName" name="taskName" placeholder="Add the task name">
+            <label class="col-md-3 form-label" for="taskBody">Task Body</label>
+            <textarea class="col-md-3 form-control" name="taskBody" id="taskBody" rows="1" cols="40"></textarea>
+          </div>
+          <button type="submit" class="btn btn-success float-right">Submit</button>
+        </form>
+      </div>
+    </div>
+
+
+    <ul class="list-group">
       <% todos.forEach(function(todo) { %>
-        <li><%= todo.text %> - <%= todo.body %></li>
+        <li class="list-group-item"><%= todo.text %> - <%= todo.body %></li>
       <% }) %>
 
     </ul>
+
 
 <% include ../views/partials/footer %>
