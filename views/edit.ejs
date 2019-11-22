@@ -1,0 +1,27 @@
+<% include ../views/partials/header %>
+
+    <section class="jumbotron text-center">
+      <div class="container">
+        <div class="jumbotron-header">
+          <h1><%= title %></h1>
+          <p>When you just need to know <%= title %></p>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="row" id="taskFormRow">
+        <form id="taskForm" action="/todo/edit/<%= todo._id %>" method="POST">
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="taskName">Task Name</label>
+            <input class="col-md-3 form-control" type="text" id="taskName" name="taskName" value="<%= todo.text %>">
+            <label class="col-md-3 form-label" for="taskBody">Task Body</label>
+            <textarea class="col-md-3 form-control" name="taskBody" id="taskBody" rows="1" cols="40"><%= todo.body %></textarea>
+          </div>
+          <button type="button" onclick="window.location.href='/'" class="btn btn-danger float-left">Cancel</button>
+          <button type="submit" class="btn btn-success float-right">Submit</button>
+        </form>
+      </div>
+    </div>
+
+<% include ../views/partials/footer %>
