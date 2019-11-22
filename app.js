@@ -41,9 +41,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.post('/todo/add', (req, res, next) => {
-  console.log('submitted');
-
-});
-
 module.exports = app;

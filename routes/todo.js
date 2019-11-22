@@ -44,27 +44,30 @@ router.post('/add', function(req, res, next) {
 //Deletes a task from the database
 router.delete('/delete/:id', (req, res, next) => {
 
+  const query = {"_id" : MongoUtil.getObjectId(req.params.id)};
+
   //connect to the DB
   MongoUtil.connectToServer(url, "todoapp", (err) => {
     if (err) console.log("There was an error connecting to the database: " + err);
+    console.log("Connected to the server");
   });
 
   //Getting the db instance
   db = MongoUtil.getDb();
+
   ObjectId = MongoUtil.getObjectId();
-  
+
   Todos = db.collection('todoapp');
-  Todos.deleteOne({"_id" : ObjectId(req.params.id)}, (err, response) => {
+
+  Todos.deleteOne(query, (err, response) => {
 
     if (err) {
       return console.log(err);
     }
+
     console.log('Todo Removed');
-    res.send(200);
+    res.sendStatus(200);
   });
-
-  res.redirect('/');
-
   //closing the db connection
   db.close;
 });

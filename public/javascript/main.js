@@ -8,8 +8,7 @@ $(document).ready(() => {
       type:'DELETE',
       url: '/todo/delete/'+id,
       success: (response) => {
-        alert('Deleting Todo');
-        windows.location.href='/';
+        window.location.href='/';
       },
       error: (error) => {
         console.log(error);

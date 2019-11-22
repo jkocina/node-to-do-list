@@ -8,6 +8,8 @@ module.exports = {
   connectToServer: function(url, database, callBack ) {
     MongoClient.connect(url, {useNewUrlParser:true}, function(err, client) {
       _db = client.db(database);
+      console.log('db connected');
+      
       return callBack( err );
     });
   },

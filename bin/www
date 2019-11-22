@@ -22,6 +22,15 @@ app.set('port', port);
 const server = http.createServer(app);
 
 /**
+ * setting the runtime environment
+ */
+if (process.env.HOST === 'localhost') {
+  process.env.NODE_ENV = 'production';
+} else {
+  process.env.NODE_ENV = 'development'
+}
+
+/**
  * Listen on provided port, on all network interfaces.
  */
 

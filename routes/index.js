@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const sync = require('sync');
 const MongoUtil = require('../util/mongoUtil');
 const url = 'mongodb://localhost:27017';
 var Todos;
@@ -16,8 +17,11 @@ router.get('/', function(req, res, next) {
   db = MongoUtil.getDb();
   typeof("The type of the database is : " + db)
 
+  console.log("Right before we collected the collection");
+
   //Getting the todos collection
   Todos = db.collection('todoapp');
+
   console.log("This is the type of the todos: " + typeof(Todos));
 
   //creating an array of todos and passing it to the index page
