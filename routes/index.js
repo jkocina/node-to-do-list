@@ -2,22 +2,15 @@ const express = require('express');
 const router = express.Router();
 const sync = require('sync');
 const MongoUtil = require('../util/mongoUtil');
-const url = 'mongodb://localhost:27017';
 var Todos;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
-  //connecting to the mongo server
-  MongoUtil.connectToServer(url, "todoapp", (err) => {
-    if (err) console.log("There was an error connecting to the database: " + err);
-  });
-
-  //Getting the db instance
-  db = MongoUtil.getDb();
-  typeof("The type of the database is : " + db)
-
   console.log("Right before we collected the collection");
+
+  //connecting the db
+  db = MongoUtil.getDb();
 
   //Getting the todos collection
   Todos = db.collection('todoapp');
@@ -33,13 +26,10 @@ router.get('/', function(req, res, next) {
     console.log(JSON.stringify(todos));
 
     res.render('index', {
-      title: "What to do",
+      title: "Things to do",
       todos: todos
     });
   })
-
-  //closing the db connection
-  db.close;
 });
 
 module.exports = router;

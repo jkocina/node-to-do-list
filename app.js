@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const MongoUtil = require('./util/mongoUtil');
+const url = 'mongodb://localhost:27017';
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -13,6 +15,10 @@ const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+MongoUtil.connectToServer(url, "todoapp", (err) => {
+  if (err) console.log("There was an error connecting to the database: " + err);
+});
 
 app.use(logger('dev'));
 app.use(express.json());

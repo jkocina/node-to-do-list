@@ -1,3 +1,4 @@
+const assert = require("assert");
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 
@@ -7,9 +8,11 @@ module.exports = {
 
   connectToServer: function(url, database, callBack ) {
     MongoClient.connect(url, {useNewUrlParser:true}, function(err, client) {
+
+      console.log('db connected? ' + client.topology.isConnected());
+
       _db = client.db(database);
-      console.log('db connected');
-      
+
       return callBack( err );
     });
   },

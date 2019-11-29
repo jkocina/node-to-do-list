@@ -26,7 +26,7 @@
     <ul class="list-group">
       <% todos.forEach(function(todo) { %>
         <li class="list-group-item">
-          <%= todo.text %> - <%= todo.body %> |  <button data-id="<%= todo._id %>" type="button" form-method="put" class="btn btn-danger float-right delete-todo">Delete</button> <button onclick="window.location.href='/todo/edit/<%= todo._id %>'" type="button" class="btn btn-info float-right edit-todo">Edit</button>
+          <%= todo.text %> - <%= todo.body %>   <button data-id="<%= todo._id %>" type="button" form-method="put" class="btn btn-danger float-right delete-todo">Delete</button> <button onclick="window.location.href='/todo/edit/<%= todo._id %>'" type="button" class="btn btn-info float-right edit-todo">Edit</button>
         </li>
       <% }) %>
     </ul>

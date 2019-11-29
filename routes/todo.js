@@ -5,16 +5,14 @@ const url = 'mongodb://localhost:27017';
 
 /* adds a task to the DB */
 router.post('/add', function(req, res, next) {
+
+  //letting em know we submitted a form
   console.log("Form submitted");
 
-  //connecting to the mongo server
-  MongoUtil.connectToServer(url, "todoapp", (err) => {
-    if (err) console.log("There was an error connecting to the database: " + err);
-  });
-
-  //Getting the db instance
+  //connecting the db
   db = MongoUtil.getDb();
 
+  //setting the new task to pass to the db
   let newTask = {
     text:req.body.taskName,
     body:req.body.taskBody
@@ -22,8 +20,6 @@ router.post('/add', function(req, res, next) {
 
   //Getting the todos collection
   Todos = db.collection('todoapp');
-
-  console.log("This is the type of the todos: " + typeof(Todos));
 
   //submitting the new tasks to the database
   Todos.insertOne(newTask, (err, result) => {
@@ -36,9 +32,6 @@ router.post('/add', function(req, res, next) {
 
   res.redirect('/');
 
-  //closing the db connection
-  db.close;
-
 });
 
 //Deletes a task from the database
@@ -46,12 +39,6 @@ router.delete('/delete/:id', (req, res, next) => {
 
   //Creating the delete query
   const query = {"_id" : MongoUtil.getObjectId(req.params.id)};
-
-  //connect to the DB
-  MongoUtil.connectToServer(url, "todoapp", (err) => {
-    if (err) console.log("There was an error connecting to the database: " + err);
-    console.log("Connected to the server");
-  });
 
   //Getting the db instance
   db = MongoUtil.getDb();
@@ -69,8 +56,6 @@ router.delete('/delete/:id', (req, res, next) => {
     console.log('Todo Removed');
     res.sendStatus(200);
   });
-  //closing the db connection
-  db.close;
 });
 
 /* redirects to the task editing screen */
@@ -78,10 +63,6 @@ router.get('/edit/:id', function(req, res, next) {
 
   console.log("Update form submitted");
 
-  //connecting to the mongo server
-  MongoUtil.connectToServer(url, "todoapp", (err) => {
-    if (err) console.log("There was an error connecting to the database: " + err);
-  });
 
   //Getting the db instance
   db = MongoUtil.getDb();
@@ -99,21 +80,12 @@ router.get('/edit/:id', function(req, res, next) {
       todo: todo
     });
   });
-
-  //closing the db connection
-  db.close;
-
 });
 
 /* edits a task */
 router.post('/edit/:id', function(req, res, next) {
 
   console.log("Update form submitted");
-
-  //connecting to the mongo server
-  MongoUtil.connectToServer(url, "todoapp", (err) => {
-    if (err) console.log("There was an error connecting to the database: " + err);
-  });
 
   //Getting the db instance
   db = MongoUtil.getDb();
@@ -135,11 +107,6 @@ router.post('/edit/:id', function(req, res, next) {
     console.log('Todo Added...');
     res.redirect('/');
   });
-
-
-  //closing the db connection
-  db.close;
-
 });
 
 module.exports = router;
