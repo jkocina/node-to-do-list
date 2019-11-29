@@ -2,10 +2,12 @@ var express = require('express');
 var router = express.Router();
 const MongoUtil = require('../util/mongoUtil');
 
-/* adds a task to the DB */
+/**
+ * This function will handle a POST request that will add a new task to the db
+ */
 router.post('/add', function(req, res, next) {
 
-  //letting em know we submitted a form
+  //letting em know we submitted a form to add
   console.log("Form submitted");
 
   //connecting the db
@@ -33,7 +35,9 @@ router.post('/add', function(req, res, next) {
 
 });
 
-//Deletes a task from the database
+/**
+ * This function will handle a delete request that will delete a task from the db
+ */
 router.delete('/delete/:id', (req, res, next) => {
 
   //Creating the delete query
@@ -57,23 +61,30 @@ router.delete('/delete/:id', (req, res, next) => {
   });
 });
 
-/* redirects to the task editing screen */
+/**
+ * This function will handle a get request to render the edit page
+ */
 router.get('/edit/:id', function(req, res, next) {
 
+  //Letting em know we made it to the update form
   console.log("Update form submitted");
-
 
   //Getting the db instance
   db = MongoUtil.getDb();
 
+  //setting the query to update the db using json syntax
   let updateQuery = {_id: MongoUtil.getObjectId(req.params.id)};
 
   //Getting the todos collection
   Todos = db.collection('todoapp');
+
+//
   Todos.find(updateQuery).next((err, todo) => {
+
     if (err) {
       return console.log(err);
     }
+
     res.render('edit', {
       title: "Todo Edit",
       todo: todo
@@ -81,7 +92,10 @@ router.get('/edit/:id', function(req, res, next) {
   });
 });
 
-/* edits a task */
+/**
+ * This function will handle an edit request from the edit page and edit a task
+ * in the db
+ */
 router.post('/edit/:id', function(req, res, next) {
 
   console.log("Update form submitted");
@@ -98,12 +112,17 @@ router.post('/edit/:id', function(req, res, next) {
 
   //Getting the todos collection
   Todos = db.collection('todoapp');
+
+  //updating the task in the db
   Todos.updateOne(query, {$set:update}, (err, result) => {
     if (err) {
       return console.log(err);
     }
 
-    console.log('Todo Added...');
+    //Letting em know that the todo has been updated
+    console.log('Todo updated...');
+
+    //Redirecting to the main edit page
     res.redirect('/');
   });
 });

@@ -16,6 +16,9 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+console.log("You are currently trying to connect to the " + process.env.DB_URL + " env ");
+console.log("You are currently trying to connect to the " + process.env.DB_NAME + " db ");
+
 //connecting to the database
 MongoUtil.connectToServer(process.env.DB_URL, process.env.DB_NAME, (err) => {
   if (err) console.log("There was an error connecting to the database: " + err);
