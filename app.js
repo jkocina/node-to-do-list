@@ -16,7 +16,8 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-MongoUtil.connectToServer(url, "todoapp", (err) => {
+//connecting to the database
+MongoUtil.connectToServer(process.env.DB_URL, process.env.DB_NAME, (err) => {
   if (err) console.log("There was an error connecting to the database: " + err);
 });
 

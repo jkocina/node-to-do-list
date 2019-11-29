@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const MongoUtil = require('../util/mongoUtil');
-const url = 'mongodb://localhost:27017';
 
 /* adds a task to the DB */
 router.post('/add', function(req, res, next) {
