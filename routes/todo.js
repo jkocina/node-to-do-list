@@ -81,7 +81,8 @@ router.get('/edit/:id', function(req, res, next) {
   Todos = db.collection('todoapp');
 
   //
-  Todos.findOne(updateQuery,(err, todo) => {
+  Todos.findOne({_id: MongoUtil.getObjectId(req.params.id)},(err, todo) => {
+
 
     console.log("The todo id value is " + todo._id);
 

@@ -19,7 +19,7 @@ const os = require('os');
        //Setting ENV Variables in Heroku
        console.log("Heroku True");
        process.env.NODE_ENV = 'development';
-       process.env.DB_URL = 'process.env.MONGO_URI';
+       process.env.DB_URL = process.env.MONGO_URI;
        process.env.DB_NAME = 'heroku_0xk8r3w4';
      }
    }
