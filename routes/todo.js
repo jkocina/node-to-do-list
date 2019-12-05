@@ -67,7 +67,7 @@ router.delete('/delete/:id', (req, res, next) => {
 router.get('/edit/:id', function(req, res, next) {
 
   //Letting em know we made it to the update form
-  console.log("Update form submitted");
+  console.log("Update form requested");
 
   //Getting the db instance
   db = MongoUtil.getDb();
@@ -75,19 +75,24 @@ router.get('/edit/:id', function(req, res, next) {
   //setting the query to update the db using json syntax
   let updateQuery = {_id: MongoUtil.getObjectId(req.params.id)};
 
+  console.log(req.params.id);
+
   //Getting the todos collection
   Todos = db.collection('todoapp');
 
-//
-  Todos.find(updateQuery).next((err, todo) => {
+  //
+  Todos.findOne(updateQuery,(err, todo) => {
+
+    console.log("The todo id value is " + todo._id);
 
     if (err) {
       return console.log(err);
     }
-
+    console.log(JSON.stringify(todo));
     res.render('edit', {
       title: "Todo Edit",
       todo: todo
+
     });
   });
 });
