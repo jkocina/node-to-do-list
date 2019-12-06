@@ -24,13 +24,17 @@ router.post('/add', function(req, res, next) {
 
   //submitting the new tasks to the database
   Todos.insertOne(newTask, (err, result) => {
+
+    //testing for an error and logging the results
     if(err) {
       return console.log("The error adding to the database is: " + err);
     }
 
+    //letting em know that we added a todo
     console.log("Todo added");
   });
 
+  //Redirecting to the root index
   res.redirect('/');
 
 });
@@ -40,23 +44,30 @@ router.post('/add', function(req, res, next) {
  */
 router.delete('/delete/:id', (req, res, next) => {
 
+  //creating the object id
+  ObjectId = MongoUtil.getObjectId();
+
   //Creating the delete query
-  const query = {"_id" : MongoUtil.getObjectId(req.params.id)};
+  const query = {"_id" : ObjectId(req.params.id)};
 
   //Getting the db instance
   db = MongoUtil.getDb();
 
-  ObjectId = MongoUtil.getObjectId();
-
+  //setting the collection to the Todos variable
   Todos = db.collection('todoapp');
 
+  //Deleting the todos and collecting the results
   Todos.deleteOne(query, (err, response) => {
 
+    //testing for an error and logging it out
     if (err) {
       return console.log(err);
     }
 
+    //Letting em know that we deleted the todo
     console.log('Todo Removed');
+
+    //setting the status on the request to successful
     res.sendStatus(200);
   });
 });
@@ -66,6 +77,9 @@ router.delete('/delete/:id', (req, res, next) => {
  */
 router.get('/edit/:id', function(req, res, next) {
 
+  //creating the object id
+  ObjectId = MongoUtil.getObjectId();
+
   //Letting em know we made it to the update form
   console.log("Update form requested");
 
@@ -73,27 +87,23 @@ router.get('/edit/:id', function(req, res, next) {
   db = MongoUtil.getDb();
 
   //setting the query to update the db using json syntax
-  let updateQuery = {_id: MongoUtil.getObjectId(req.params.id)};
-
-  console.log(req.params.id);
+  let updateQuery = {_id: ObjectId(req.params.id)};
 
   //Getting the todos collection
   Todos = db.collection('todoapp');
 
-  //
-  Todos.findOne({_id: MongoUtil.getObjectId(req.params.id)},(err, todo) => {
+  //querying the db for one document to edit based on the document id
+  Todos.findOne(updateQuery, (err, todo) => {
 
-
-    console.log("The todo id value is " + todo._id);
-
+    //Testing and logging an error
     if (err) {
       return console.log(err);
     }
-    console.log(JSON.stringify(todo));
+
+    //Redirecting to the edit page
     res.render('edit', {
       title: "Todo Edit",
       todo: todo
-
     });
   });
 });
@@ -104,13 +114,16 @@ router.get('/edit/:id', function(req, res, next) {
  */
 router.post('/edit/:id', function(req, res, next) {
 
+  //letting em know that the update form was submitted
   console.log("Update form submitted");
 
   //Getting the db instance
   db = MongoUtil.getDb();
 
+  //Setting the query of the document to edit
   let query = {_id: MongoUtil.getObjectId(req.params.id)};
 
+  //Getting the values of the update from the request parameter
   let update = {
     text: req.body.taskName,
     body: req.body.taskBody

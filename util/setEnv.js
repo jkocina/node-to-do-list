@@ -3,7 +3,6 @@ const os = require('os');
 /**
  * setting the runtime environment and database url
  */
-
  module.exports = {
 
    setEnv: function() {

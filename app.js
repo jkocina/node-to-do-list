@@ -18,7 +18,7 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-//setting the host info to env vars
+//setting the host info to ENV vars
 setEnv.setEnv();
 
 //Log host information
