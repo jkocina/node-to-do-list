@@ -2,7 +2,7 @@
 
 *prepare to be amazed*
 
-** Featuring: **
+**Featuring:**
 
 1. Node 12.12
 2. bootstrap 4.4.1
@@ -15,6 +15,7 @@
 - edit a task
 - literally the world is in your hands There
 
+**ToDo**
 [] add menu
 [] add categories
 [] add log ins
